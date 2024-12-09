@@ -1,0 +1,48 @@
+int red1 = 3;
+int red2 = 5;
+int red3 = 6;
+int green = 2;
+int brightness = 0;
+int dir = 5;
+
+void setup() {
+  pinMode(red1, OUTPUT);
+  pinMode(red2, OUTPUT);
+  pinMode(red3, OUTPUT);
+  pinMode(green, OUTPUT);
+}
+
+void loop() {
+  turnon();
+
+  while (true) {
+    Blinkgreen();
+    delay(10);
+  }
+}
+
+void turnon() {
+  int LEDs[] = {red1, red2, red3};
+
+  for (int i = 0; i < 3; i++) {
+    for (int brightness = 0; brightness <= 255; brightness++) {
+      analogWrite(LEDs[i], brightness);
+      Blinkgreen();
+      delay(20);
+    }
+    delay(1000);
+  }
+}
+
+void Blinkgreen() {
+  analogWrite(green, brightness);
+  brightness += dir;
+
+  if (brightness <= 0) {
+    dir = 5;
+  }
+
+  if (brightness >= 255) {
+    dir = -5;
+  }
+}
